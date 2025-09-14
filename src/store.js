@@ -1,3 +1,5 @@
+import { act } from "react";
+
 export const initialStore=()=>{
   return{
     message: null,
@@ -12,20 +14,18 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
+    ],
+    contactList: [],
+    hiddenMessage:"hidden"
   }
 }
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
-    case 'add_task':
-
-      const { id,  color } = action.payload
-
-      return {
-        ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
-      };
+    case 'INIT_CONTACTS':
+      return {...store, contactList: action.payload};
+    case "HIDDEN_MESSAGE":
+      return {...store, hiddenMessage: action.payload}
     default:
       throw Error('Unknown action.');
   }    
